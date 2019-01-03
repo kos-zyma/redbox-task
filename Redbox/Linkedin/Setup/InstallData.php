@@ -58,6 +58,7 @@ class InstallData implements InstallDataInterface
             'required' => false,
             'visible' => true,
             'user_defined' => true,
+            'validate_rules' => '{"max_text_length":250}',
             'sort_order' => 1000,
             'position' => 1000,
             'system' => 0,
