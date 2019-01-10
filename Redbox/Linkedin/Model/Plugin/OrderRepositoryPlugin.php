@@ -1,5 +1,4 @@
 <?php
-/* File: app/code/Atwix/OrderFeedback/Plugin/OrderRepositoryPlugin.php */
 
 namespace Redbox\Linkedin\Model\Plugin;
 
@@ -8,9 +7,12 @@ use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderSearchResultInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 
+/**
+ * Class OrderRepositoryPlugin
+ * @package Redbox\Linkedin\Model\Plugin
+ */
 class OrderRepositoryPlugin
 {
-
     const LINKEDIN_PROFILE = 'linkedin_profile';
 
     /**
@@ -21,8 +23,6 @@ class OrderRepositoryPlugin
     protected $extensionFactory;
 
     /**
-     * OrderRepositoryPlugin constructor
-     *
      * @param OrderExtensionFactory $extensionFactory
      */
     public function __construct(OrderExtensionFactory $extensionFactory)

@@ -1,0 +1,15 @@
+<?php
+/** @var \Redbox\Linkedin\Block\UserAttributes $this */
+?>
+
+<?php foreach ($this->getAvailableAttributes() as $attribute): ?>
+    <div class="field">
+        <label class="label"
+               for="<?= $block->escapeHtml($attribute['attribute_code']); ?>">
+            <span><?= $block->escapeHtml($attribute['label']); ?>
+            </span></label>
+        <input type="text" name="<?= $block->escapeHtml($attribute['attribute_code']); ?>"
+               value="<?= $block->escapeHtml($attribute['value']); ?>"
+               title="<?= $block->escapeHtml($attribute['label']); ?>"/>
+    </div>
+<?php endforeach; ?>

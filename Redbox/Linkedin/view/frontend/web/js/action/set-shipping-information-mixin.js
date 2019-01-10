@@ -15,8 +15,9 @@ define([
                 shippingAddress['extension_attributes'] = {};
             }
 
-            shippingAddress['extension_attributes']['linkedin_profile'] = shippingAddress.customAttributes['linkedin_profile'];
-            // pass execution to original action ('Magento_Checkout/js/action/set-shipping-information')
+            shippingAddress['extension_attributes']['linkedin_profile'] =
+                shippingAddress.customAttributes['linkedin_profile'];
+
             return originalAction();
         });
     };

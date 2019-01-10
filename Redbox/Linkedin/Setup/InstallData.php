@@ -4,14 +4,17 @@ namespace Redbox\Linkedin\Setup;
 
 use Magento\Customer\Setup\CustomerSetupFactory;
 use Magento\Customer\Model\Customer;
-use Magento\Eav\Model\Entity\Attribute\Set as AttributeSet;
-use Magento\Eav\Model\Entity\Attribute\SetFactory as AttributeSetFactory;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
+/**
+ * Class InstallData
+ * @package Redbox\Linkedin\Setup
+ */
 class InstallData implements InstallDataInterface
 {
+    const LINKED_ATTR_CODE = 'linkedin_profile';
 
     /**
      * @var CustomerSetupFactory
@@ -19,55 +22,50 @@ class InstallData implements InstallDataInterface
     private $customerSetupFactory;
 
     /**
-     * @var AttributeSetFactory
-     */
-    private $attributeSetFactory;
-
-    /**
      * @param CustomerSetupFactory $customerSetupFactory
-     * @param AttributeSetFactory $attributeSetFactory
      */
     public function __construct(
-        CustomerSetupFactory $customerSetupFactory,
-        AttributeSetFactory $attributeSetFactory
+        CustomerSetupFactory $customerSetupFactory
     ) {
         $this->customerSetupFactory = $customerSetupFactory;
-        $this->attributeSetFactory = $attributeSetFactory;
     }
 
     /**
-     * {@inheritdoc}
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface $context
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-
-        /** @var CustomerSetup $customerSetup */
+        /** @var \Magento\Customer\Setup\CustomerSetup $customerSetup */
         $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
 
-        $customerEntity = $customerSetup->getEavConfig()->getEntityType('customer');
-        $attributeSetId = $customerEntity->getDefaultAttributeSetId();
-
-        /** @var $attributeSet AttributeSet */
-        $attributeSet = $this->attributeSetFactory->create();
-        $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
-
-        $customerSetup->addAttribute(Customer::ENTITY, 'linkedin_profile', [
+        $customerSetup->addAttribute(Customer::ENTITY, self::LINKED_ATTR_CODE, [
             'type' => 'varchar',
             'label' => 'LinkedIn Profile',
             'input' => 'text',
             'required' => false,
             'visible' => true,
-            'user_defined' => true,
             'validate_rules' => '{"max_text_length":250}',
             'sort_order' => 1000,
             'position' => 1000,
             'system' => 0,
         ]);
 
-        $attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'linkedin_profile')
+        $this->addLinkedinAttributeToAllForms($customerSetup);
+    }
+
+    /**
+     * @param \Magento\Customer\Setup\CustomerSetup $customerSetup
+     * @throws \Exception
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    private function addLinkedinAttributeToAllForms(\Magento\Customer\Setup\CustomerSetup $customerSetup)
+    {
+        $attribute = $customerSetup
+            ->getEavConfig()
+            ->getAttribute(Customer::ENTITY, self::LINKED_ATTR_CODE)
             ->addData([
-                'attribute_set_id' => $attributeSetId,
-                'attribute_group_id' => $attributeGroupId,
                 'used_in_forms' => [
                     'adminhtml_customer',
                     'adminhtml_checkout',

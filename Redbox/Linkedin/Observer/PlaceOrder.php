@@ -4,6 +4,10 @@ namespace Redbox\Linkedin\Observer;
 
 use Magento\Sales\Api\Data\OrderInterface;
 
+/**
+ * Class PlaceOrder
+ * @package Redbox\Linkedin\Observer
+ */
 class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
 {
     const LINKEDIN_PROFILE = 'linkedin_profile';
