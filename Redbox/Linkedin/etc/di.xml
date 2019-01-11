@@ -9,8 +9,4 @@
         <plugin name="add_linkedin_profile_to_quote" type="Redbox\Linkedin\Model\Plugin\Quote\SaveToQuotePlugin"
                 sortOrder="100"/>
     </type>
-    <type name="Magento\Sales\Api\OrderRepositoryInterface">
-        <plugin name="add_linkedin_profile_to_order"
-                type="Redbox\Linkedin\Model\Plugin\OrderRepositoryPlugin" sortOrder="100"/>
-    </type>
 </config>
