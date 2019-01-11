@@ -13,8 +13,10 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class UserAttributes extends \Magento\Framework\View\Element\Template
 {
+    /**
+     * Form identifiers
+     */
     const CUSTOMER_EDIT_FORM = 'customer_account_edit';
-    
     const CUSTOMER_CREATE_FORM = 'customer_account_create';
 
     /**

@@ -35,13 +35,14 @@ class SaveToQuotePlugin
         $cartId,
         \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
     ) {
-        if (!$extAttributes = $addressInformation->getShippingAddress()->getExtensionAttributes()){
+        /** @var \Magento\Quote\Api\Data\AddressExtension $customAttributes */
+        $customAttributes = $addressInformation->getShippingAddress()->getCustomAttributes();
+
+        if (!$customAttributes) {
             return;
         }
-
+        /** @var \Magento\Quote\Model\Quote $quote */
         $quote = $this->quoteRepository->getActive($cartId);
-
-        $quote->setLinkedinProfile($extAttributes->getLinkedinProfile());
-
+        $quote->setData('linkedin_profile', $customAttributes->getLinkedinProfile());
     }
 }

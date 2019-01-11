@@ -34,7 +34,6 @@ class LayoutProcessorPlugin
         array $jsLayout
     ) {
         if (!$this->customerSession->isLoggedIn()) {
-
             $customAttributeCode = 'linkedin_profile';
             $customField = [
                 'component' => 'Magento_Ui/js/form/element/abstract',

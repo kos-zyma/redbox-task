@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <!--Migration when register a customer-->
+        <fieldset id="checkout_onepage_quote">
+            <field name="linkedin_profile">
+                <aspect name="to_customer" targetField="linkedin" />
+            </field>
+        </fieldset>
+        <!--For guest users let`s save linkedin profile to order-->
+        <fieldset id="sales_convert_quote">
+            <field name="linkedin_profile">
+                <aspect name="to_order" targetField="linkedin_profile" />
+            </field>
+        </fieldset>
+    </scope>
+</config>
